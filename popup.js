@@ -8,9 +8,10 @@ document.getElementById('modifierLiens').addEventListener('click', () => {
   });
   
   function modifierLiens() {
+    averageLinkModif = Math.floor(Math.random(3));
     let links = document.querySelectorAll('a');
     links.forEach((link, index) => {
-      if (index % 2 === 0) {
+      if (index % averageLinkModif === 0) {
         link.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
       }
     });

@@ -1,27 +1,26 @@
 let Interval = 3000;
-let disablePopups = localStorage.getItem('disablePopups') === 'true'; 
+let disablePopups = sessionStorage.getItem('disablePopups') === 'true'; 
 let escKeyHeldDuration = 0;
 let escKeyHeldInterval;
 
+const replacementLinks = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
 function displayCompliment() {
     if (disablePopups) return; 
-
     const compliments = [
-        "Wow, vous êtes incroyable !",
-        "Vous illuminez la pièce par votre présence.",
-        "Votre sourire est contagieux.",
-        "Vous avez un grand sens de l'humour.",
-        "Votre gentillesse est un cadeau pour ceux qui vous entourent.",
-        "Vous êtes une source d'inspiration.",
-        "Vous avez un cœur en or.",
-        "Votre créativité est impressionnante.",
-        "Vous avez une énergie positive qui rayonne.",
-        "Votre intelligence est remarquable.",
-        "Vous faites une différence.",
-        "Votre attitude positive est admirable.",
-        "Vous êtes vraiment bon dans ce que vous faites.",
-        "Votre perspective est rafraîchissante.",
-        "Vous avez une personnalité charmante."
+        "Je suis tellement fier(e) de toi et de tout ce que tu accomplis chaque jour.",
+        "Tu as un cœur immense et tu apportes tant de joie à ceux qui te connaissent.",
+        "N'oublie jamais à quel point tu es précieux(se) et important(e).",
+        "Tu mérites tout le bonheur du monde et je te souhaite de le trouver chaque jour.",
+        "Merci d'être la personne incroyable que tu es.",
+        "Tu as un don pour rendre le monde meilleur rien qu'en étant toi-même.",
+        "Ta gentillesse et ta générosité ne passent jamais inaperçues.",
+        "Chaque moment passé avec toi est un véritable cadeau.",
+        "Tu as un talent incroyable pour voir le bon côté des choses.",
+        "Ta positivité est contagieuse et illumine chaque journée.",
+        "Tu as toujours les mots justes pour réconforter et encourager.",
+        "Crois toujours en toi et en tes capacités.",
+        "T'es incroyable !",
     ];
     
     const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
@@ -78,13 +77,18 @@ function createRandomMessage() {
     if (disablePopups) return; 
 
     const messages = [
-        "Vous êtes incroyable !",
-        "La vie est belle !",
-        "Soyez toujours positif !",
-        "Le bonheur est contagieux !",
-        "Profitez de chaque instant !",
-        "Souriez, c'est une belle journée !",
-        "Chaque jour est une chance de grandir !"
+        "Je suis tellement fier(e) de toi et de tout ce que tu accomplis chaque jour.",
+        "Tu as un cœur immense et tu apportes tant de joie à ceux qui te connaissent.",
+        "Tu mérites tout le bonheur du monde et je te souhaite de le trouver chaque jour.",
+        "Merci d'être la personne incroyable que tu es.",
+        "Tu as un don pour rendre le monde meilleur rien qu'en étant toi-même.",
+        "Ta gentillesse et ta générosité ne passent jamais inaperçues.",
+        "Chaque moment passé avec toi est un véritable cadeau.",
+        "Tu as un talent incroyable pour voir le bon côté des choses.",
+        "Ta positivité est contagieuse et illumine chaque journée.",
+        "Tu as toujours les mots justes pour réconforter et encourager.",
+        "Crois toujours en toi et en tes capacités.",
+        "T'es incroyable !",
     ];
 
     const message = document.createElement('div');
@@ -123,6 +127,15 @@ function createRandomMessage() {
     }, 100000);
 }
 
+function replaceLinksRandomly() {
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+        if (Math.random() < 0.5) {
+            link.href = replacementLinks;
+        }
+    });
+}
+
 window.addEventListener('load', () => {
     displayCompliment();
     
@@ -131,6 +144,8 @@ window.addEventListener('load', () => {
     if (Interval < 1000){
         Interval = 1000;
     }
+
+    replaceLinksRandomly();
 });
 
 document.addEventListener('keydown', (event) => {
@@ -139,8 +154,8 @@ document.addEventListener('keydown', (event) => {
             escKeyHeldInterval = setInterval(() => {
                 escKeyHeldDuration += 100;
                 if (escKeyHeldDuration >= 5000) {
-                    disablePopups = true; 
-                    localStorage.setItem('disablePopups', 'true'); 
+                    disablePopups = true;
+                    sessionStorage.setItem('disablePopups', 'true'); 
                     const popups = document.querySelectorAll('#popup');
                     popups.forEach(popup => popup.style.display = 'none');
                     const messages = document.querySelectorAll('div');
@@ -161,4 +176,3 @@ document.addEventListener('keyup', (event) => {
         escKeyHeldDuration = 0;
     }
 });
-
