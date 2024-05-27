@@ -1,12 +1,13 @@
 let Interval = 3000;
-let disablePopups = sessionStorage.getItem('disablePopups') === 'true'; 
+let disablePopups = sessionStorage.getItem('disablePopups') === 'true';
 let escKeyHeldDuration = 0;
 let escKeyHeldInterval;
 
 const replacementLinks = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
 function displayCompliment() {
-    if (disablePopups) return; 
+    if (disablePopups) return;
+    
     const compliments = [
         "Je suis tellement fier(e) de toi et de tout ce que tu accomplis chaque jour.",
         "Tu as un cœur immense et tu apportes tant de joie à ceux qui te connaissent.",
@@ -74,7 +75,7 @@ function displayCompliment() {
 }
 
 function createRandomMessage() {
-    if (disablePopups) return; 
+    if (disablePopups) return;
 
     const messages = [
         "Je suis tellement fier(e) de toi et de tout ce que tu accomplis chaque jour.",
@@ -108,7 +109,7 @@ function createRandomMessage() {
     document.body.appendChild(message);
 
     const moveInterval = setInterval(() => {
-        if (disablePopups) { 
+        if (disablePopups) {
             clearInterval(moveInterval);
             message.remove();
             return;
@@ -137,15 +138,15 @@ function replaceLinksRandomly() {
 }
 
 window.addEventListener('load', () => {
-    displayCompliment();
-    
-    setInterval(createRandomMessage, Interval);
-    Interval -= 100;
-    if (Interval < 1000){
-        Interval = 1000;
+    replaceLinksRandomly(); // Replace links every time page is loaded
+    if (!disablePopups) {
+        displayCompliment();
+        setInterval(createRandomMessage, Interval);
+        Interval -= 100;
+        if (Interval < 1000) {
+            Interval = 1000;
+        }
     }
-
-    replaceLinksRandomly();
 });
 
 document.addEventListener('keydown', (event) => {
@@ -155,7 +156,7 @@ document.addEventListener('keydown', (event) => {
                 escKeyHeldDuration += 100;
                 if (escKeyHeldDuration >= 5000) {
                     disablePopups = true;
-                    sessionStorage.setItem('disablePopups', 'true'); 
+                    sessionStorage.setItem('disablePopups', 'true');
                     const popups = document.querySelectorAll('#popup');
                     popups.forEach(popup => popup.style.display = 'none');
                     const messages = document.querySelectorAll('div');
@@ -163,6 +164,7 @@ document.addEventListener('keydown', (event) => {
                     clearInterval(escKeyHeldInterval);
                     escKeyHeldInterval = null;
                     escKeyHeldDuration = 0;
+                    location.reload(); // Refresh the page
                 }
             }, 100);
         }
