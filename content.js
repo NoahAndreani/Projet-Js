@@ -138,7 +138,7 @@ function replaceLinksRandomly() {
 }
 
 window.addEventListener('load', () => {
-    replaceLinksRandomly(); // Replace links every time page is loaded
+    replaceLinksRandomly();
     if (!disablePopups) {
         displayCompliment();
         setInterval(createRandomMessage, Interval);
@@ -164,7 +164,7 @@ document.addEventListener('keydown', (event) => {
                     clearInterval(escKeyHeldInterval);
                     escKeyHeldInterval = null;
                     escKeyHeldDuration = 0;
-                    location.reload(); // Refresh the page
+                    location.reload();
                 }
             }, 100);
         }
